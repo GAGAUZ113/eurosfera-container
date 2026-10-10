@@ -172,6 +172,10 @@
     route(); hero(); say(); dirs(); offer(); contact(); top();
     ScrollTrigger.refresh();
   }
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start, start);
+  /* Заставка открыта — вступление первого экрана придержим до входа, чтобы оно не проигралось за ней */
+  var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  if (root.classList.contains('intro-on')) {
+    window.addEventListener('intro:done', function () { fontsReady.then(start, start); }, { once: true });
+  } else fontsReady.then(start, start);
   window.addEventListener('pageshow', function () { ScrollTrigger.refresh(); });
 })();

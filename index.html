@@ -8,9 +8,30 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="style.css">
-<script>document.documentElement.classList.add("js-wait");setTimeout(function(){document.documentElement.classList.remove("js-wait")},2500)</script>
+<script>
+(function(){var r=document.documentElement,seen=false;
+try{seen=!!localStorage.getItem("es_intro_seen")}catch(e){}
+if(/[?&]intro=1/.test(location.search))seen=false;
+if(/[?&]intro=0/.test(location.search))seen=true;
+if(!seen)r.classList.add("intro-on");
+r.classList.add("js-wait");setTimeout(function(){if(!r.classList.contains("intro-on"))r.classList.remove("js-wait")},2500)})();
+</script>
 </head>
 <body>
+
+<!-- Заставка: один раз при первом входе. Без скриптов её нет. -->
+<div class="intro" role="dialog" aria-modal="true" aria-label="EUROSFERA">
+  <div class="intro__media" aria-hidden="true"><img src="img/hero-m.jpg" alt=""></div>
+  <div class="intro__body">
+    <img class="intro__logo" src="img/logo.svg" alt="EUROSFERA" width="220" height="45">
+    <p class="intro__slogan">Откройте для&nbsp;себя Евросферу</p>
+    <p class="intro__sub mono">Контейнер из Китая — быстро, дёшево, понятно</p>
+    <div class="intro__acts">
+      <button class="btn intro__go" type="button"><span>Войти со звуком</span><i aria-hidden="true"></i></button>
+      <button class="intro__mute" type="button">Войти без звука</button>
+    </div>
+  </div>
+</div>
 
 <a class="skip" href="#route">К маршруту</a>
 
@@ -129,6 +150,7 @@
   <a href="https://euro.s.bg/">euro.s.bg</a>
 </footer>
 
+<script src="intro.js"></script>
 <script src="js/gsap.min.js"></script>
 <script src="js/ScrollTrigger.min.js"></script>
 <script src="js/SplitText.min.js"></script>
